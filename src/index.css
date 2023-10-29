@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ini-sesion,
+.header-portal{
+  -webkit-text-fill-color: transparent;
+  background: -webkit-linear-gradient(right, #4ebde2, #5473ff 100%);
+  -webkit-background-clip: text;
+}

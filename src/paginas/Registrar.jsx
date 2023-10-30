@@ -81,106 +81,90 @@ const Registrar = () => {
   };
 
   return (
-    <>
-      <h1 className="ini-sesion font-black text-6xl text-center mx-auto">
-        Crear Asistente
+    <form
+      className="bg-white shadow rounded-lg md:w-1/3 mx-auto mt-10"
+      onSubmit={handleSubmit}
+    >
+      <h1 className="ini-sesion text-4xl text-center mb-10 pt-8 pb-4">
+        Registrar Asistente
       </h1>
+      {/* Nombre */}
+      <div className="mb-5 px-16">
+        <label
+          className="text-gray-600 block text-xl font-bold"
+          htmlFor="nombre"
+        >
+          Nombre
+        </label>
+        <input
+          id="nombre"
+          type="text"
+          placeholder="Juan Magan"
+          className="w-full mt-3 p-2 border rounded-xl bg-gray-50"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+        />
+      </div>
+      {/* Correo */}
+      <div className="mb-5 px-16">
+        <label
+          className="text-gray-600 block text-xl font-bold"
+          htmlFor="email"
+        >
+          Correo
+        </label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Correo@islademaipo.cl"
+          className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      {/* Contraseña */}
+      <div className="mb-5 px-16">
+        <label
+          className="text-gray-600 block text-xl font-bold"
+          htmlFor="password"
+        >
+          Contraseña
+        </label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Ingrese la contraseña"
+          className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+      {/* Repetir Contraseña */}
+      <div className="mb-5 px-16">
+        <label
+          className="text-gray-600 block text-xl font-bold"
+          htmlFor="password2"
+        >
+          Repetir Contraseña
+        </label>
+        <input
+          id="password2"
+          type="password"
+          placeholder="Repita la contraseña"
+          className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+          value={repetirPassword}
+          onChange={(e) => setRepetirPassword(e.target.value)}
+        />
+      </div>
 
-      <form
-        className="my-10 bg-white shadow rounded-lg px-10 py-5"
-        onSubmit={handleSubmit}
-      >
-        {/* Nombre */}
-        <div className="my-5">
-          <label
-            className="text-gray-600 block text-xl font-bold"
-            htmlFor="nombre"
-          >
-            Nombre
-          </label>
-          <input
-            id="nombre"
-            type="text"
-            placeholder="Juan Magan"
-            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-          />
-        </div>
-        {/* Correo */}
-        <div className="my-5">
-          <label
-            className="text-gray-600 block text-xl font-bold"
-            htmlFor="email"
-          >
-            Correo
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Correo@islademaipo.cl"
-            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        {/* Contraseña */}
-        <div className="my-5">
-          <label
-            className="text-gray-600 block text-xl font-bold"
-            htmlFor="password"
-          >
-            Contraseña
-          </label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Ingrese la contraseña"
-            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        {/* Repetir Contraseña */}
-        <div className="my-5">
-          <label
-            className="text-gray-600 block text-xl font-bold"
-            htmlFor="password2"
-          >
-            Repetir Contraseña
-          </label>
-          <input
-            id="password2"
-            type="password"
-            placeholder="Repita la contraseña"
-            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-            value={repetirPassword}
-            onChange={(e) => setRepetirPassword(e.target.value)}
-          />
-        </div>
-
-        <div className="flex items-center justify-between">
-          <button>
-            <Link
-              className="block text-center mt-1 text-slate-500 text-sm"
-              to="/portal/"
-            >
-              <input
-                type="submit"
-                value="Volver"
-                className="bg-blue-400 w-60 py-3 my-3 text-white font-bold rounded-xl hover:cursor-pointer hover:bg-blue-500 transition-colors mx-auto"
-              />
-            </Link>
-          </button>
-
-          <input
-            type="submit"
-            value="Crear"
-            className="bg-green-400 w-60 py-3 my-3 text-white font-bold rounded-xl hover:cursor-pointer hover:bg-green-500 transition-colors mx-auto"
-          />
-        </div>
-      </form>
-    </>
+      <div className="text-center justify-between">
+        <input
+          type="submit"
+          value="Crear"
+          className="btn-registrar w-60 py-2 mt-2 mb-5 text-white font-bold rounded-xl hover:cursor-pointer mx-auto"
+        />
+      </div>
+    </form>
   );
 };
 

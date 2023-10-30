@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import clienteAxios from "../config/clienteAxios";
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
@@ -10,17 +10,25 @@ const Login = () => {
 
   const { setAuth } = useAuth();
 
+  const navigate = useNavigate();
+
+  const alerta = (icon, titulo, texto) => {
+    Swal.fire({
+      icon: icon,
+      title: titulo,
+      text: texto,
+      confirmButtonColor: "#3085d6",
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if ([email, password].includes("")) {
-      Swal.fire({
-        icon: "warning",
-        title: "Todos los campos son obligatorios",
-        text: "Ingrese su correo electrónico",
-        confirmButtonColor: "#3085d6",
-        allowOutsideClick: false,
-      });
+      alerta("warning", "Todos los campos son obligatorios", "Intentelo nuevamente")
       return;
     }
 
@@ -31,16 +39,16 @@ const Login = () => {
       });
 
       localStorage.setItem("token", data.token);
+      localStorage.setItem("email", data.email)
       setAuth(data);
-      window.location.href = "/portal/personas";
+      setTimeout( () => {
+        alerta("success", "Inicio de sesión existoso", "")
+        navigate("/portal/personas/")
+        console.clear();
+      })
 
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: error.response.data.msg,
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      alerta("error", error.response.data.msg, "")
     }
   };
 

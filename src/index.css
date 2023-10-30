@@ -8,3 +8,7 @@
   background: -webkit-linear-gradient(right, #4ebde2, #5473ff 100%);
   -webkit-background-clip: text;
 }
+
+.btn-registrar {
+  background: -webkit-linear-gradient(right, #4ebde2, #5473ff 100%);
+}

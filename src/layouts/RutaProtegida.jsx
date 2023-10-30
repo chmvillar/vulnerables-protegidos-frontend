@@ -1,4 +1,4 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, Route } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import Header from "../components/Header";
 
@@ -21,7 +21,7 @@ const RutaProtegida = () => {
             
           </div>
         </div>
-      ) : <Navigate to="/portal" /> }
+      ) : <Navigate to="/portal/" /> }
     </>
   );
 };

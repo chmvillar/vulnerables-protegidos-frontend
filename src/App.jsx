@@ -12,6 +12,7 @@ import Inicio from "./paginas/Inicio";
 import SolicitarVisita from "./paginas/SolicitarVisita";
 import OfrecerServicios from "./paginas/OfrecerServicios";
 import Personas from "./paginas/Personas";
+import Persona from "./paginas/Persona";
 
 import { AuthProvider } from "./context/AuthProvider";
 import { PersonasProvider } from "./context/PersonasProvider";
@@ -32,17 +33,15 @@ function App() {
             <Route path="/portal/" element={<AuthLayout />}>
               <Route index element={<Login />} />
               <Route path="olvide-password" element={<OlvidePassword />} />
-              <Route
-                path="olvide-password/:token"
-                element={<NuevaPassword />}
-              />
+              <Route path="olvide-password/:token" element={<NuevaPassword />}/>
               <Route path="confirmar/:id" element={<ConfirmarCuenta />} />
             </Route>
 
-            <Route path="/portal/personas" element={<RutaProtegida />}>
+            <Route path="/portal/personas/" element={<RutaProtegida />}>
               <Route index element={<Personas />} />
               <Route path="reg-l5mqb7f5l6tk" element={<Registrar />} />
               <Route path="registrar-persona" element={<NuevaPersona />} />
+              <Route path=":id" element={<Persona />} />
             </Route>
           </Routes>
         </PersonasProvider>

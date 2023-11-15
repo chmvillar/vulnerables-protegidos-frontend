@@ -13,10 +13,12 @@ import SolicitarVisita from "./paginas/SolicitarVisita";
 import OfrecerServicios from "./paginas/OfrecerServicios";
 import Personas from "./paginas/Personas";
 import Persona from "./paginas/Persona";
+import NuevaPersona from "./paginas/NuevaPersona";
+import EditarPersona from "./paginas/EditarPersona";
+import AsignarAsistente from "./paginas/AsignarAsistente";
 
 import { AuthProvider } from "./context/AuthProvider";
 import { PersonasProvider } from "./context/PersonasProvider";
-import NuevaPersona from "./paginas/NuevaPersona";
 
 function App() {
   return (
@@ -41,7 +43,9 @@ function App() {
               <Route index element={<Personas />} />
               <Route path="reg-l5mqb7f5l6tk" element={<Registrar />} />
               <Route path="registrar-persona" element={<NuevaPersona />} />
+              <Route path="asignar-asistente/:id" element={<AsignarAsistente />} />
               <Route path=":id" element={<Persona />} />
+              <Route path="editar/:id" element={<EditarPersona />} />
             </Route>
           </Routes>
         </PersonasProvider>

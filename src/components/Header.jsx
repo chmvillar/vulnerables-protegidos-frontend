@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { LuLogOut } from "react-icons/lu";
+import usePersonas from "../hooks/usePersonas";
+import Busqueda from "./Busqueda";
 
 const Header = () => {
   const token_admin = import.meta.env.VITE_TOKEN_ADMIN;
@@ -7,41 +9,44 @@ const Header = () => {
 
   const handleCerrarSesion = () => {
     localStorage.clear();
-    window.location.href = "/portal/";
+    window.location.href = "/";
   };
+
+  const { handleBuscador } = usePersonas();
 
   return (
     <header className="px-4 py-5 bg-white border-b">
       <div className="md:flex justify-between">
-        <div className="flex items-center">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-4">
           <Link to="/portal/personas/">
-            <h2 className="header-portal text-4xl font-black text-center pr-5">
+            <h2 className="header-portal text-4xl font-black text-center md:mb-0">
               Portal Web
             </h2>
           </Link>
           <Link
             to="/portal/personas/"
-            className="font-bold border-gray-600 pl-3 text-gray-600 block text-xl"
+            className="font-bold border-gray-600 text-gray-600 block text-xl"
           >
             Inicio
           </Link>
-        </div>
-
-        <input
-          type="search"
-          placeholder="Buscar Persona"
-          className="rounded-xl w-2/6 py-2 px-5 border"
-        />
-
-        <div className="flex items-center">
           {token_admin === token && (
             <Link
               to="/portal/personas/reg-l5mqb7f5l6tk"
-              className="font-bold pr-6 text-gray-600 block text-lg"
+              className="font-bold text-gray-600 block text-lg"
             >
               Personal
             </Link>
           )}
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center gap-4">
+          <button
+            type="button"
+            className="flex items-center justify-center font-bold uppercase"
+            onClick={handleBuscador}
+          >
+            Buscar persona
+          </button>
 
           <button
             type="button"
@@ -50,6 +55,7 @@ const Header = () => {
           >
             <LuLogOut />
           </button>
+          <Busqueda />
         </div>
       </div>
     </header>

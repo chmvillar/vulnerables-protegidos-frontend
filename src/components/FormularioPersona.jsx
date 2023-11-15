@@ -1,44 +1,101 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import usePersonas from "../hooks/usePersonas";
+import { formatRut, validarRut } from "../helpers/ValidarRut";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const FormularioPersona = () => {
+  const [id, setId] = useState(null);
   const [rut, setRut] = useState("");
   const [nombre, setNombre] = useState("");
-  const [direccion, setDireccion] = useState("");
+  const [busquedaMapa, setBusquedaMapa] = useState("");
+  const [direccionActualizada, setDireccionActualizada] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [isValidRut, setIsValidRut] = useState(true);
+  const [validarNombre, setValidarNombre] = useState(true);
+  const [validarBusqueda, setValidarBusqueda] = useState(true);
+  const [validarDireccionActualizada, setValidarDireccionActualizada] = useState(false);
+  const [validarDescripcion, setValidarDescripcion] = useState(true);
+  const navigate = useNavigate();
 
-  const { submitPersona } = usePersonas();
+  const { submitPersona, persona } = usePersonas();
+  const params = useParams();
 
-  const alerta = (icon, titulo, texto) => {
-    Swal.fire({
-      icon: icon,
-      title: titulo,
-      text: texto,
-      confirmButtonColor: "#3085d6",
-      allowOutsideClick: false,
-      showConfirmButton: false,
-      timer: 2000,
-    });
+  useEffect(() => {
+    if (params.id && persona.rut) {
+      setId(persona._id);
+      setRut(persona.rut);
+      setNombre(persona.nombre);
+      setDireccionActualizada(persona.direccion)
+      setDescripcion(persona.descripcion);
+      setValidarDireccionActualizada(true);
+
+      console.log(persona.direccion);
+    }
+  }, [params]);
+
+  const handleRutChange = (e) => {
+    const nuevoRut = e.target.value;
+    setRut(nuevoRut);
+    if (!validarRut(nuevoRut)) {
+      setIsValidRut(false);
+    } else {
+      setIsValidRut(true);
+    }
+  };
+
+  const handleNombreChange = (e) => {
+    const nuevoNombre = e.target.value;
+    setNombre(nuevoNombre);
+    if (nuevoNombre.length < 3) {
+      setValidarNombre(false);
+    } else {
+      setValidarNombre(true);
+    }
+  };
+
+  const handleDescripcionChange = (e) => {
+    const nuevaDescripcion = e.target.value;
+    setDescripcion(nuevaDescripcion);
+    if (nuevaDescripcion.length < 5) {
+      setValidarDescripcion(false);
+    } else {
+      setValidarDescripcion(true);
+    }
+  };
+
+  const handleBlur = () => {
+    const rutFormateado = formatRut(rut);
+    setRut(rutFormateado);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if ([rut, nombre, direccion, descripcion].includes("")) {
-      alerta(
-        "warning",
-        "Todos los campos son obligatorios",
-        "Intentelo nuevamente"
-      );
-      return;
-    }
+    if (isValidRut) {
+      let direccionAUsar = validarDireccionActualizada ? `${direccionActualizada}, Isla de Maipo` : `${busquedaMapa.label}`;
 
-    submitPersona({ rut, nombre, direccion, descripcion });
-    setRut("")
-    setNombre("")
-    setDireccion("")
-    setDescripcion("")
+      if (nombre.length < 3 || direccionAUsar.length < 5 || descripcion.length < 3) {
+        setValidarBusqueda(false);
+        Swal.fire({
+          icon: "warning",
+          title: "Todos los campos son obligatorios",
+          text: "Inténtelo nuevamente",
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      } else {
+        setValidarBusqueda(true);
+        await submitPersona({ id, rut, nombre, direccion: direccionAUsar, descripcion });
+
+        setTimeout(() => {
+          navigate("/portal/personas/");
+        });
+        setId(null);
+      }
+    }
   };
 
   return (
@@ -47,7 +104,7 @@ const FormularioPersona = () => {
       onSubmit={handleSubmit}
     >
       <h1 className="ini-sesion text-4xl font-bold text-center mb-10 pb-5">
-        Registrar Persona
+        {id ? "Actualizar Información" : "Registrar Persona"}
       </h1>
       <div className="mb-5 px-10">
         <label
@@ -62,8 +119,11 @@ const FormularioPersona = () => {
           className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md"
           placeholder="11.111.111-1"
           value={rut}
-          onChange={(e) => setRut(e.target.value)}
+          onChange={handleRutChange}
+          onBlur={handleBlur}
+          maxLength={12}
         />
+        {!isValidRut && <p className="pt-1 text-red-500">RUT inválido</p>}
       </div>
       <div className="mb-5 px-10">
         <label
@@ -78,24 +138,48 @@ const FormularioPersona = () => {
           className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md"
           placeholder="Miles Morales"
           value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
+          onChange={handleNombreChange}
         />
+        {validarNombre ? (
+          ""
+        ) : (
+          <p className="pt-1 text-red-500">Nombre inválido</p>
+        )}
       </div>
       <div className="mb-5 px-10">
-        <label
-          className="text-gray-700 uppercase font-bold text-sm"
-          htmlFor="direccion"
-        >
+        <label className="text-gray-700 uppercase font-bold text-sm">
           Dirección
         </label>
-        <input
-          id="direccion"
-          type="text"
-          className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-          placeholder="P. Sherman calle wallaby 42, Sydney"
-          value={direccion}
-          onChange={(e) => setDireccion(e.target.value)}
-        />
+        {id ? (
+          <input
+            id="dirección"
+            type="text"
+            className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+            placeholder="Municipalidad Isla de Maipo"
+            value={direccionActualizada}
+            onChange={(e) => setDireccionActualizada(e.target.value)}
+          />
+        ) : (
+          <GooglePlacesAutocomplete
+            id="direccion"
+            apiKey="AIzaSyBsipC_wQjwEdV2isU8AFQA5T6F0HaaKUM"
+            value={busquedaMapa}
+            selectProps={{
+              busquedaMapa,
+              onChange: setBusquedaMapa,
+              placeholder: "Municipalidad Isla de Maipo",
+            }}
+            autocompletionRequest={{
+              componentRestrictions: {
+                country: ["cl"],
+              },
+            }}
+          />
+        )}
+
+        {!validarBusqueda && (
+          <p className="pt-1 text-red-500">Ingresar dirección</p>
+        )}
       </div>
       <div className="mb-5 px-10">
         <label
@@ -107,15 +191,20 @@ const FormularioPersona = () => {
         <textarea
           id="descripcion"
           className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md resize-none"
-          placeholder="Información que desee almacenar"
+          placeholder="Persona con necesidades especiales..."
           value={descripcion}
-          onChange={(e) => setDescripcion(e.target.value)}
+          onChange={handleDescripcionChange}
         />
+        {!validarDescripcion && (
+          <p className="pt-1 text-red-500">
+            Debe contener al menos 5 caracteres
+          </p>
+        )}
       </div>
       <div className="flex justify-center items-center">
         <input
           type="submit"
-          value="Registrar"
+          value={id ? "Actualizar" : "Registrar"}
           className="btn-registrar p-2 px-10 text-white uppercase font-bold block text-center rounded-xl hover:cursor-pointer"
         />
       </div>

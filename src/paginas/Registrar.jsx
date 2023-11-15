@@ -82,14 +82,14 @@ const Registrar = () => {
 
   return (
     <form
-      className="bg-white shadow rounded-lg md:w-1/3 mx-auto mt-10"
+      className="bg-white shadow rounded-lg sm:w-1/3 md:w-2/3 lg:w-1/3 mx-auto mt-10"
       onSubmit={handleSubmit}
     >
       <h1 className="ini-sesion text-4xl text-center mb-10 pt-8 pb-4">
         Registrar Asistente
       </h1>
       {/* Nombre */}
-      <div className="mb-5 px-16">
+      <div className="mb-5 px-8">
         <label
           className="text-gray-600 block text-xl font-bold"
           htmlFor="nombre"
@@ -106,7 +106,7 @@ const Registrar = () => {
         />
       </div>
       {/* Correo */}
-      <div className="mb-5 px-16">
+      <div className="mb-5 px-8">
         <label
           className="text-gray-600 block text-xl font-bold"
           htmlFor="email"
@@ -123,7 +123,7 @@ const Registrar = () => {
         />
       </div>
       {/* Contraseña */}
-      <div className="mb-5 px-16">
+      <div className="mb-5 px-8">
         <label
           className="text-gray-600 block text-xl font-bold"
           htmlFor="password"
@@ -140,7 +140,7 @@ const Registrar = () => {
         />
       </div>
       {/* Repetir Contraseña */}
-      <div className="mb-5 px-16">
+      <div className="mb-5 px-8">
         <label
           className="text-gray-600 block text-xl font-bold"
           htmlFor="password2"
@@ -161,7 +161,7 @@ const Registrar = () => {
         <input
           type="submit"
           value="Crear"
-          className="btn-registrar w-60 py-2 mt-2 mb-5 text-white font-bold rounded-xl hover:cursor-pointer mx-auto"
+          className="btn-registrar w-40 py-2 mt-2 mb-5 text-white font-bold rounded-xl hover:cursor-pointer mx-auto"
         />
       </div>
     </form>

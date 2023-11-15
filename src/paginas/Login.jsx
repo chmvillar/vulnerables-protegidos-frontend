@@ -17,7 +17,6 @@ const Login = () => {
       icon: icon,
       title: titulo,
       text: texto,
-      confirmButtonColor: "#3085d6",
       allowOutsideClick: false,
       showConfirmButton: false,
       timer: 2000,
@@ -28,7 +27,11 @@ const Login = () => {
     e.preventDefault();
 
     if ([email, password].includes("")) {
-      alerta("warning", "Todos los campos son obligatorios", "Intentelo nuevamente")
+      alerta(
+        "warning",
+        "Todos los campos son obligatorios",
+        "Intentelo nuevamente"
+      );
       return;
     }
 
@@ -39,16 +42,15 @@ const Login = () => {
       });
 
       localStorage.setItem("token", data.token);
-      localStorage.setItem("email", data.email)
+      localStorage.setItem("email", data.email);
       setAuth(data);
-      setTimeout( () => {
-        alerta("success", "Inicio de sesión existoso", "")
-        navigate("/portal/personas/")
+      setTimeout(() => {
+        alerta("success", "Inicio de sesión existoso", "");
+        navigate("/portal/personas/");
         console.clear();
-      })
-
+      });
     } catch (error) {
-      alerta("error", error.response.data.msg, "")
+      alerta("error", error.response.data.msg, "");
     }
   };
 

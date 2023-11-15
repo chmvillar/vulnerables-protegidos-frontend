@@ -1,4 +1,4 @@
-import { formatearFecha } from "../helpers/FormatearFecha";
+import { formatearFecha } from "../helpers/formatearFecha";
 import usePersonas from "../hooks/usePersonas";
 
 const Necesidad = ({ necesidad }) => {

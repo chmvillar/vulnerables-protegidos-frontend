@@ -22,8 +22,6 @@ const FormularioPersona = () => {
   const { submitPersona, persona } = usePersonas();
   const params = useParams();
 
-  const api = import.meta.env.VITE_BACKEND_URL
-
   useEffect(() => {
     if (params.id && persona.rut) {
       setId(persona._id);
@@ -164,7 +162,7 @@ const FormularioPersona = () => {
         ) : (
           <GooglePlacesAutocomplete
             id="direccion"
-            apiKey={api}
+            apiKey={import.meta.env.VITE_GOOGLE_API_KEY}
             value={busquedaMapa}
             selectProps={{
               busquedaMapa,

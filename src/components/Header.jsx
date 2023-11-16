@@ -7,7 +7,7 @@ const Header = () => {
   const token_admin = import.meta.env.VITE_TOKEN_ADMIN;
   const token = localStorage.getItem("email");
 
-  const handleCerrarSesion = () => {
+  const handleCerrarSesion = () => { 
     localStorage.clear();
     window.location.href = "/";
   };

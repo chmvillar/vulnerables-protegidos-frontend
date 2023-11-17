@@ -13,7 +13,7 @@ const SolicitarVisita = () => {
           </Link>
         </div>
 
-        <div className="flex flex-col md:flex-row md:gap-16 items-center justify-center mb-4 md:mb-0">
+        <div className="flex flex-col md:flex-row md:gap-16 items-center justify-center mb-5 md:mb-0">
           <Link to="/" className="mb-2 md:mb-0">
             Inicio
           </Link>

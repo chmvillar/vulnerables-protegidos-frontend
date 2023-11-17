@@ -14,6 +14,7 @@ const InformacionInicio = () => {
       </div>
       <div className="flex flex-1 justify-center items-center mt-0.5 p-5 h-1/2 bg-white">
         <p>Publicaciones Portal Posts</p>
+        
       </div>
     </div>
   );

@@ -265,7 +265,7 @@ const ModalFormNecesidad = () => {
                     <div className="flex justify-center items-center mt-2">
                       <input
                         type="submit"
-                        className="btn-registrar text-sm py-2.5 px-12 md:w-auto rounded-xl font-bold text-white text-center mt-5 uppercase cursor-pointer"
+                        className="btn-gradient text-sm py-2.5 px-12 md:w-auto rounded-xl font-bold text-white text-center mt-5 uppercase cursor-pointer"
                         value={id ? "Guardar" : "Crear"}
                       />
                     </div>

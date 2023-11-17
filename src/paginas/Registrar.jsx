@@ -161,7 +161,7 @@ const Registrar = () => {
         <input
           type="submit"
           value="Crear"
-          className="btn-registrar w-40 py-2 mt-2 mb-5 text-white font-bold rounded-xl hover:cursor-pointer mx-auto"
+          className="btn-gradient w-40 py-2 mt-2 mb-5 text-white font-bold rounded-xl hover:cursor-pointer mx-auto"
         />
       </div>
     </form>

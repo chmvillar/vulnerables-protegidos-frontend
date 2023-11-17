@@ -26,7 +26,7 @@ const Personas = () => {
           <div className="flex justify-center items-center">
             <Link
               to="registrar-persona"
-              className="btn-registrar py-2 px-6 mb-10 text-white uppercase font-bold block text-center justify-center rounded-xl"
+              className="btn-gradient py-2 px-6 mb-10 text-white uppercase font-bold block text-center justify-center rounded-xl"
             >
               Registrar Persona
             </Link>

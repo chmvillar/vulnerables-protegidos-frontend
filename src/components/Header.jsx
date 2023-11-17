@@ -22,7 +22,7 @@ const Header = () => {
             <h2 className="header-portal text-4xl font-black text-center md:mb-0">
               Portal Web
             </h2>
-          </Link>
+          </Link> 
           <Link
             to="/portal/personas/"
             className="font-bold border-gray-600 text-gray-600 block text-xl"

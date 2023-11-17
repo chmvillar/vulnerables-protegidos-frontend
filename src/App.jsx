@@ -31,6 +31,10 @@ function App() {
               <Route path="solicitar-visita" element={<SolicitarVisita />} />
               <Route path="ofrecer-servicios" element={<OfrecerServicios />} />
             </Route>
+            <Route path="/formulario/">
+            <Route path="solicitar-visita" element={<SolicitarVisita />} />
+              <Route path="ofrecer-servicios" element={<OfrecerServicios />} />
+            </Route>
 
             <Route path="/portal/" element={<AuthLayout />}>
               <Route index element={<Login />} />

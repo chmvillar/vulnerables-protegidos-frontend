@@ -205,7 +205,7 @@ const FormularioPersona = () => {
         <input
           type="submit"
           value={id ? "Actualizar" : "Registrar"}
-          className="btn-registrar p-2 px-10 text-white uppercase font-bold block text-center rounded-xl hover:cursor-pointer"
+          className="btn-gradient p-2 px-10 text-white uppercase font-bold block text-center rounded-xl hover:cursor-pointer"
         />
       </div>
     </form>

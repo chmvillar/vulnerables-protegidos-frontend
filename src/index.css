@@ -13,9 +13,22 @@
   background: -webkit-linear-gradient(right, #4ebde2, #5473ff 100%);
 }
 
+.qa::before {
+  background: -webkit-linear-gradient(right, #4ebde2, #5473ff 100%);
+}
+
 @media (min-width: 200px) and (max-width: 400px) {
   .btn-enviarForm {
     width: 90px;
+  }
+
+  .container-inicio {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .txt-inicio {
+    font-size: 1rem;
   }
 }
 
@@ -36,6 +49,11 @@
   border-radius: 50%;
   border-top-color: #3498db;
   animation: spin 2s linear infinite;
+}
+
+.acordeon-faq {
+  max-width: 900px;
+  width: 100%;
 }
 
 @keyframes spin {

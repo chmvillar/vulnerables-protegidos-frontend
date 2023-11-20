@@ -118,10 +118,12 @@ const FormularioVisita = () => {
             apiKey={import.meta.env.VITE_GOOGLE_API_KEY}
             value={busquedaMapa}
             key={forceRender}
+            required
             selectProps={{
               busquedaMapa,
               onChange: setBusquedaMapa,
               placeholder: "Municipalidad Isla de Maipo",
+              required: true
             }}
             autocompletionRequest={{
               componentRestrictions: {
@@ -142,6 +144,7 @@ const FormularioVisita = () => {
             id="descripcion"
             className="border rounded-lg py-1.5 px-2 resize-none h-32 "
             placeholder="Escriba más detallada su solicitud de visita"
+            required
             value={formData.message}
             onChange={handleChange}
           />

@@ -6,7 +6,7 @@ const Asignacion = ({ asignacion }) => {
     const { nombre, email } = asignacion;
   
     return (
-    <div className="border-b p-5 flex justify-between">
+    <div className="asignacion border-b p-5 flex justify-between">
         <div className="flex flex-col">
             <p className="text-xl">{nombre}</p>
             <p className=" text-slate-400">{email}</p>

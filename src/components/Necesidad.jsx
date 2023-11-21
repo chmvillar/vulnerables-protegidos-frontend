@@ -15,7 +15,7 @@ const Necesidad = ({ necesidad }) => {
   const token = localStorage.getItem("email");
 
   return (
-    <div className="border-b p-5 flex justify-between sm:flex-col lg:flex-row">
+    <div className="necesidad border-b p-5 flex justify-between gap-x-5 sm:flex-col lg:flex-row">
       {estado ? (
         <>
           <div className="lg:flex lg:flex-col">
@@ -31,23 +31,23 @@ const Necesidad = ({ necesidad }) => {
                     </p>
                   </div>
                 ) : (
-                  <>
-                    <p className="text-xl text-green-600">
-                      Fue completada por:
+                  <div className="completadaPor flex gap-1 bg-green-500 shadow py-1 px-2 rounded-lg">
+                    <p className="text-sm text-white xl:text-xl">
+                      Completada por
                     </p>
-                    <p className="flex items-center capitalize text-black ml-1 text-xl">
+                    <p className="capitalize text-white text-sm xl:text-xl">
                       {necesidad.completado.nombre}
                     </p>
-                  </>
+                  </div>
                 )}
               </div>
             ) : (
               <p className="flex text-xl justify-center items-center mb-3 text-green-600">
-                Ya está completada!
+                Está completada!
               </p>
             )}
           </div>
-          <div className="sm:flex sm:justify-center items-center">
+          <div className="flex justify-center items-center">
             {token_admin === token && (
               <button
                 className="bg-red-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg"
@@ -71,7 +71,7 @@ const Necesidad = ({ necesidad }) => {
             <p className="mb-1 text-lg text-gray-600">Prioridad: {prioridad}</p>
           </div>
 
-          <div className="flex justify-center items-center lg:justify-endlg:flex-row gap-2 mt-3">
+          <div className="btn-necesidad flex justify-center items-center lg:justify-endlg:flex-row gap-2 mt-3">
             {token_admin === token && (
               <button
                 className="bg-blue-500 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg"

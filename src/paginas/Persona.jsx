@@ -72,6 +72,7 @@ const Persona = () => {
       title: "¿Desea elimnar el registro?",
       showCancelButton: true,
       confirmButtonText: "Eliminar",
+      confirmButtonColor: "red",
     }).then((result) => {
       if (result.isConfirmed) {
         eliminarPersona(params.id);
@@ -84,7 +85,7 @@ const Persona = () => {
   return (
     <>
       <div className="flex justify-center">
-        <h1 className="font-black text-4xl capitalize">{nombre}</h1>
+        <h1 className="nombrePersona font-black text-4xl capitalize">{nombre}</h1>
       </div>
       <div className="flex justify-center mt-2 mb-8">
         {token_admin === token && (
@@ -100,8 +101,9 @@ const Persona = () => {
           </div>
         )}
       </div>
-
-      <div className="flex justify-between gap-16 mt-5 bg-white p-5 rounded-lg shadow lg:flex-row sm:flex-col">
+      
+      {/* Necesidades */}
+      <div className="container-persona flex justify-between gap-16 mt-5 bg-white p-5 rounded-lg shadow lg:flex-row sm:flex-col">
         <div className="w-full">
           <div className="flex justify-between">
             <p className="font-bold text-xl">Necesidades</p>
@@ -109,12 +111,10 @@ const Persona = () => {
               <button
                 onClick={handleModalNecesidad}
                 type="button"
-                className="text-sm md:w-auto rounded-lg font-bold text-center uppercase flex gap-2 items-center justify-center"
+                className="md:w-auto rounded-lg font-bold text-center flex gap-2 items-center justify-center text-gray-500"
               >
-                <div className="text-lg">
-                  <LuPlusCircle />
-                </div>
-                Registrar necesidad
+                
+                Añadir
               </button>
             )}
           </div>
@@ -133,6 +133,7 @@ const Persona = () => {
             </p>
           )}
         </div>
+
         {/* Asignaciones */}
         {token_admin === token && (
           <div className="w-full">

@@ -12,12 +12,12 @@ const InformacionInicio = () => {
           />
         </div>
         <div className="container-inicio flex xl:flex-row gap-5 rounded-lg p-5 mx-auto sm:w-3/4 w-full xl:w-2/4">
-          <p className="txt-inicio xl:text-xl lg:text-xl  text-gray-500 p-3 shadow rounded-lg mt-2">
+          <p className="txt-inicio xl:text-xl lg:text-xl  text-gray-500 p-3 shadow-lg shadow-orange-100 rounded-lg mt-2">
             Esta web está orientada a que puedan informanos sobre alguna persona
             de su circulo o alguien de la calle, que esté necesitando ayuda y
             podamos realizar una visita a esa persona y/o familia.
           </p>
-          <p className="txt-inicio xl:text-xl lg:text-xl text-gray-500 p-3 shadow rounded-lg mt-2">
+          <p className="txt-inicio xl:text-xl lg:text-xl text-gray-500 p-3 shadow-lg shadow-orange-100 rounded-lg mt-2">
             Si está interesado en compartir sus conocimientos en algún área, o
             quiere ofrecer su ayuda en algún tema, no dude en enviar su
             información para tenerla en nuestros registros y contactarnos cuando
@@ -28,7 +28,9 @@ const InformacionInicio = () => {
       <div className="flex flex-col justify-center items-center mt-0.5 p-5 h-1/2 bg-white">
         <blockquote className="text-2xl font-semibold italic text-center text-slate-900 mt-5 mb-10">
           <span className="qa before:block before:absolute before:-inset-2 before:-skew-y-2 relative inline-block">
-            <span className="relative text-white text-3xl">Preguntas y Respuestas</span>
+            <span className="relative text-white text-3xl">
+              Preguntas y Respuestas
+            </span>
           </span>
         </blockquote>
         <QAPanel
@@ -37,7 +39,7 @@ const InformacionInicio = () => {
         />
         <QAPanel
           question="¿Cuál es el propósito de enviar un formulario de visita?"
-          answer="Tailwind CSS es un marco de utilidades de estilo de bajo nivel para construir interfaces de usuario personalizadas."
+          answer="El propósito es que podamos realizar una visita a la persona o familia en situación de vulnerabilidad y poder entregarle ayuda en lo que esté necesitando."
         />
         <QAPanel
           question="¿Cómo puedo ofrecer mi ayuda para eventos caritativos?"
@@ -45,16 +47,22 @@ const InformacionInicio = () => {
         />
         <QAPanel
           question="¿Qué información se recopila a través del formulario de visita?"
-          answer="Si usted conoce a alguien que esté en situación de vulnerabilidad, puede enviar el nombre si es que lo sabe o la dirección, junto con un pequeño mensaje, para que nuestro equipo haga una visita programada."
-        />
-        <QAPanel
-          question="¿Cuáles son los próximos eventos caritativos?"
-          answer='Para conocer los próximos eventos, puede visitar la página "Blog" en la parte superior de la web.'
+          answer="Se almacena el nombre, rut (si es que lo sabe) dirección y el mensaje que usted envía, para nosotros realizar la porterior visita."
         />
         <QAPanel
           question="¿Puedo ofrecer ayuda específica, como donaciones o servicios?"
           answer='Claro que si. Desde el apartado de "Ofrecer ayuda" puede enviar su información y nos pondremos en contacto con usted.'
         />
+        <QAPanel
+          question="¿Cuáles son los próximos eventos caritativos?"
+          answer="Para conocer los próximos eventos, puede visitar la página 'Blog' en la parte superior de la web."
+        />
+      </div>
+      <div className="flex justify-center items-center bg-white mt-0.5 p-5">
+        <p>
+          Desarrollado por{" "}
+          <span className="header-portal">EMC Digital Studio©</span>
+        </p>
       </div>
     </div>
   );

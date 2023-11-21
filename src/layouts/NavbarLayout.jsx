@@ -4,7 +4,7 @@ import InformacionInicio from "../components/InformacionInicio";
 const NavbarLayout = () => {
   return (
     <>
-      <div className="bg-white p-5 flex flex-col md:flex-row justify-between items-center">
+      <div className="bg-white p-5 flex flex-col md:flex-row justify-between items-center shadow-2xl shadow-orange-200">
         <div className="ini-sesion mb-4 md:mb-0 md:mr-4">
           <Link to="/">
             <div className="flex justify-center items-center">
@@ -29,7 +29,7 @@ const NavbarLayout = () => {
             Solicitar Visita
           </Link>
 
-          <Link to="/formulario/ofrecer-servicios/" className=" ">
+          <Link to="/formulario/ofrecer-servicios/" className="mb-2 md:mb-0">
             Ofrecer Ayuda comunitaria
           </Link>
         </div>

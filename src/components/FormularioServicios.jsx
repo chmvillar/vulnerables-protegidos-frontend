@@ -142,7 +142,7 @@ const FormularioVisita = () => {
   return (
     <>
       <div className="flex justify-center items-center">
-        <p className="text-lg text-gray-500 xl:w-1/2 shadow-md py-2 px-5 rounded-lg mt-8">
+        <p className="text-lg text-gray-500 xl:w-1/2 py-2 px-5 rounded-lg mt-8 shadow-md shadow-blue-50">
           En este formulario puedes enviar tu información sobre alguna ayuda que
           desees realizar, como cortar el cabello, ayudar con higiene personal,
           ayudar con temas sobre la salud, etc.
@@ -151,7 +151,7 @@ const FormularioVisita = () => {
       <form
         ref={form}
         onSubmit={sendEmail}
-        className="shadow px-16 py-8 m-5 xl:w-1/3 mx-auto mt-16"
+        className="shadow-xl shadow-orange-200 px-16 py-8 m-5 xl:w-1/3 mx-auto mt-16 rounded-lg"
       >
         <div className="flex justify-center items-center">
           <h1 className="ini-sesion text-3xl pb-3 font-bold">
@@ -273,7 +273,7 @@ const FormularioVisita = () => {
             name="message"
             id="descripcion"
             className="border rounded-lg py-1.5 px-2 resize-none h-32 mt-1"
-            placeholder="Escriba más detallada su solicitud de visita"
+            placeholder="Escriba más detallado su propósito..."
             value={formData.message}
             onChange={handleChange}
             required

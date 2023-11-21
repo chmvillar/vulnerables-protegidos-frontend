@@ -15,7 +15,8 @@ const FormularioPersona = () => {
   const [isValidRut, setIsValidRut] = useState(true);
   const [validarNombre, setValidarNombre] = useState(true);
   const [validarBusqueda, setValidarBusqueda] = useState(true);
-  const [validarDireccionActualizada, setValidarDireccionActualizada] = useState(false);
+  const [validarDireccionActualizada, setValidarDireccionActualizada] =
+    useState(false);
   const [validarDescripcion, setValidarDescripcion] = useState(true);
   const navigate = useNavigate();
 
@@ -27,7 +28,7 @@ const FormularioPersona = () => {
       setId(persona._id);
       setRut(persona.rut);
       setNombre(persona.nombre);
-      setDireccionActualizada(persona.direccion)
+      setDireccionActualizada(persona.direccion);
       setDescripcion(persona.descripcion);
       setValidarDireccionActualizada(true);
 
@@ -47,7 +48,7 @@ const FormularioPersona = () => {
 
   const handleNombreChange = (e) => {
     const nuevoNombre = e.target.value;
-    setNombre(nuevoNombre);
+    setNombre(capitalize(nuevoNombre));
     if (nuevoNombre.length < 3) {
       setValidarNombre(false);
     } else {
@@ -73,10 +74,39 @@ const FormularioPersona = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isValidRut) {
-      let direccionAUsar = validarDireccionActualizada ? `${direccionActualizada}, Isla de Maipo` : `${busquedaMapa.label}`;
+    function capitalize(str) {
+      return str.replace(/\b\w/g, (char) => char.toUpperCase());
+    }
 
-      if (nombre.length < 3 || direccionAUsar.length < 5 || descripcion.length < 3) {
+    if (isValidRut) {
+      let direccionAUsar;
+
+      if (validarDireccionActualizada) {
+        const direccionActualizadaLowerCase =
+          direccionActualizada.toLowerCase();
+
+        // Validar si la dirección actualizada ya contiene alguna variante de "Isla de Maipo"
+        if (
+          !(
+            direccionActualizadaLowerCase.includes("isla de maipo") ||
+            direccionActualizadaLowerCase.includes("isla") ||
+            direccionActualizadaLowerCase.includes("islade maipo") ||
+            direccionActualizadaLowerCase.includes("islademaipo")
+          )
+        ) {
+          direccionAUsar = `${capitalize(direccionActualizada)}, Isla de Maipo`;
+        } else {
+          direccionAUsar = capitalize(direccionActualizada);
+        }
+      } else {
+        direccionAUsar = `${busquedaMapa.label}`;
+      }
+
+      if (
+        nombre.length < 3 ||
+        direccionAUsar.length < 5 ||
+        descripcion.length < 3
+      ) {
         setValidarBusqueda(false);
         Swal.fire({
           icon: "warning",
@@ -88,7 +118,13 @@ const FormularioPersona = () => {
         });
       } else {
         setValidarBusqueda(true);
-        await submitPersona({ id, rut, nombre, direccion: direccionAUsar, descripcion });
+        await submitPersona({
+          id,
+          rut,
+          nombre,
+          direccion: direccionAUsar,
+          descripcion,
+        });
 
         setTimeout(() => {
           navigate("/portal/personas/");
@@ -100,13 +136,13 @@ const FormularioPersona = () => {
 
   return (
     <form
-      className="bg-white py-10 px-5 md:w-1/3 rounded-lg"
+      className="formPersona bg-white py-10 px-5 md:w-2/3 sm:w-3/4 lg:w-1/3 rounded-lg"
       onSubmit={handleSubmit}
     >
       <h1 className="ini-sesion text-4xl font-bold text-center mb-10 pb-5">
         {id ? "Actualizar Información" : "Registrar Persona"}
       </h1>
-      <div className="mb-5 px-10">
+      <div className="campo mb-5 px-10">
         <label
           className="text-gray-700 uppercase font-bold text-sm"
           htmlFor="rut"
@@ -125,7 +161,7 @@ const FormularioPersona = () => {
         />
         {!isValidRut && <p className="pt-1 text-red-500">RUT inválido</p>}
       </div>
-      <div className="mb-5 px-10">
+      <div className="campo mb-5 px-10">
         <label
           className="text-gray-700 uppercase font-bold text-sm"
           htmlFor="nombre"
@@ -146,7 +182,7 @@ const FormularioPersona = () => {
           <p className="pt-1 text-red-500">Nombre inválido</p>
         )}
       </div>
-      <div className="mb-5 px-10">
+      <div className="campo mb-5 px-10">
         <label className="text-gray-700 uppercase font-bold text-sm">
           Dirección
         </label>
@@ -181,7 +217,7 @@ const FormularioPersona = () => {
           <p className="pt-1 text-red-500">Ingresar dirección</p>
         )}
       </div>
-      <div className="mb-5 px-10">
+      <div className="campo mb-5 px-10">
         <label
           className="text-gray-700 uppercase font-bold text-sm"
           htmlFor="descripcion"
@@ -205,7 +241,7 @@ const FormularioPersona = () => {
         <input
           type="submit"
           value={id ? "Actualizar" : "Registrar"}
-          className="btn-gradient p-2 px-10 text-white uppercase font-bold block text-center rounded-xl hover:cursor-pointer"
+          className="btn-gradient p-2 px-10 text-white uppercase font-bold block text-center rounded-xl hover:cursor-pointer -mb-4"
         />
       </div>
     </form>

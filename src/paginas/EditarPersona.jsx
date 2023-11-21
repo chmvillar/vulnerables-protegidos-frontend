@@ -15,7 +15,7 @@ const EditarPersona = () => {
 
   return (
     <>
-      <h1 className="font-black text-3xl">{nombre}</h1>
+      <h1 className="font-black text-3xl capitalize flex justify-center">{nombre}</h1>
 
       <div className="mt-10 flex justify-center">
         <FormularioPersona />

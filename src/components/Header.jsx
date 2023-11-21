@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <header className="px-4 py-5 bg-white border-b">
       <div className="md:flex justify-between">
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-4">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
           <Link to="/portal/personas/">
             <h2 className="header-portal text-4xl font-black text-center md:mb-0">
               Portal Web
@@ -42,7 +42,7 @@ const Header = () => {
         <div className="flex flex-col md:flex-row items-center gap-4">
           <button
             type="button"
-            className="flex items-center justify-center font-bold uppercase"
+            className="btn-buscarPersona flex items-center justify-center text-lg text-white py-1 px-4 rounded-lg bg-blue-400"
             onClick={handleBuscador}
           >
             Buscar persona

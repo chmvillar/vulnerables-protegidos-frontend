@@ -82,7 +82,7 @@ const Registrar = () => {
 
   return (
     <form
-      className="bg-white shadow rounded-lg sm:w-1/3 md:w-2/3 lg:w-1/3 mx-auto mt-10"
+      className="container-asistente bg-white shadow rounded-lg sm:w-1/3 md:w-2/3 lg:w-1/3 mx-auto mt-10"
       onSubmit={handleSubmit}
     >
       <h1 className="ini-sesion text-4xl text-center mb-10 pt-8 pb-4">
@@ -157,7 +157,7 @@ const Registrar = () => {
         />
       </div>
 
-      <div className="text-center justify-between">
+      <div className="crear-asistente text-center justify-between">
         <input
           type="submit"
           value="Crear"

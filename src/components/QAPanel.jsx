@@ -18,12 +18,12 @@ const QAPanel = ({ question, answer }) => {
   };
 
   return (
-    <div className="acordeon-faq border rounded shadow p-4 mb-4">
+    <div className="acordeon-faq border rounded shadow-lg shadow-orange-200 p-4 mb-4">
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={toggleAccordion}
       >
-        <h2 className="text-lg font-semibold">{question}</h2>
+        <h2 className="text-lg font-semibold mr-6">{question}</h2>
         <svg
           className={`w-6 h-6 transition-transform transform text-orange-500 ${
             isOpen ? "rotate-180" : ""
@@ -43,7 +43,7 @@ const QAPanel = ({ question, answer }) => {
       </div>
 
       {isOpen && (
-        <div className="p-2 flex justify-center items-center">
+        <div className="p-2 flex">
           <p className="mt-2 text-gray-500">{answer}</p>
         </div>
       )}

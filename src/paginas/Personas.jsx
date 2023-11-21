@@ -15,11 +15,10 @@ const Personas = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center mb-3.5">
-        <p className="ini-sesion text-2xl border-gray-600">
-          ¡Hola, <span className="capitalize">{auth.nombre}!</span>
+      <div className="saludo flex justify-center items-center mb-3.5">
+        <p className=" text-2xl border-gray-600">
+          <span className="ini-sesion capitalize">¡Hola, {auth.nombre}!</span> 😁
         </p>
-        <span className="text-xl">😁</span>
       </div>
       {token_admin === token && (
         <div>
@@ -37,7 +36,7 @@ const Personas = () => {
       {personas.length ? (
         personas.map((persona) => (
           <div
-            className="bg-white shadow mt-5 rounded-lg p-4"
+            className="container-persona bg-white shadow mt-5 rounded-lg p-4"
             key={persona._id}
           >
             <PreviewPersona persona={persona} />

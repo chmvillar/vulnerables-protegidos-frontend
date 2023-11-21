@@ -18,7 +18,7 @@ const Necesidad = ({ necesidad }) => {
     <div className="necesidad border-b p-5 flex justify-between gap-x-5 sm:flex-col lg:flex-row">
       {estado ? (
         <>
-          <div className="lg:flex lg:flex-col">
+          <div className="lg:flex lg:flex-col mx-auto">
             <p className="mb-1 text-lg flex justify-center lg:justify-start">
               {nombre}
             </p>

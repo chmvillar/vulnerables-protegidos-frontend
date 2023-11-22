@@ -47,7 +47,7 @@ const AsignarAsistente = () => {
                     <div>
                       <button
                         type="button"
-                        className="bg-slate-500 px-5 py-2 rounded-lg uppercase text-white font-bold text-sm"
+                        className="bg-green-500 px-5 py-2 rounded-lg uppercase text-white font-bold text-sm"
                         onClick={() =>
                           agregarAsignacion({
                             email: usuario.email,

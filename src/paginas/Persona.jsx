@@ -36,7 +36,7 @@ const Persona = () => {
 
   useEffect(() => {
     socket = io(import.meta.env.VITE_BACKEND_URL);
-    socket.emit("abrir proyecto", params.id);
+    socket.emit("abrir necesidad", params.id);
   }, []);
 
   useEffect(() => {
@@ -54,15 +54,15 @@ const Persona = () => {
 
     socket.on("necesidad actualizada", (necesidadActualizada) => {
       if (necesidadActualizada.persona._id === persona._id) {
-        actualizarNecesidadPersona(necesidadActualizada)
+        actualizarNecesidadPersona(necesidadActualizada);
       }
-    })
+    });
 
-    socket.on("nuevo estado", estadoNecesidad => {
+    socket.on("nuevo estado", (estadoNecesidad) => {
       if (estadoNecesidad.persona._id === persona._id) {
         completarNecesidadPersona(estadoNecesidad);
       }
-    })
+    });
   });
 
   const { nombre } = persona;
@@ -85,7 +85,9 @@ const Persona = () => {
   return (
     <>
       <div className="flex justify-center">
-        <h1 className="nombrePersona font-black text-4xl capitalize">{nombre}</h1>
+        <h1 className="nombrePersona font-black text-4xl capitalize">
+          {nombre}
+        </h1>
       </div>
       <div className="flex justify-center mt-2 mb-8">
         {token_admin === token && (
@@ -101,22 +103,19 @@ const Persona = () => {
           </div>
         )}
       </div>
-      
+
       {/* Necesidades */}
       <div className="container-persona flex justify-between gap-16 mt-5 bg-white p-5 rounded-lg shadow lg:flex-row sm:flex-col">
         <div className="w-full">
           <div className="flex justify-between">
             <p className="font-bold text-xl">Necesidades</p>
-            {token_admin === token && (
-              <button
-                onClick={handleModalNecesidad}
-                type="button"
-                className="md:w-auto rounded-lg font-bold text-center flex gap-2 items-center justify-center text-gray-500"
-              >
-                
-                Añadir
-              </button>
-            )}
+            <button
+              onClick={handleModalNecesidad}
+              type="button"
+              className="md:w-auto rounded-lg font-bold text-center flex gap-2 items-center justify-center text-gray-500"
+            >
+              Añadir
+            </button>
           </div>
           {persona.necesidades?.length ? (
             persona.necesidades?.map((necesidad) => (

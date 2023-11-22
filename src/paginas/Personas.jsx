@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import usePersonas from "../hooks/usePersonas";
@@ -10,8 +9,6 @@ const Personas = () => {
 
   const token_admin = import.meta.env.VITE_TOKEN_ADMIN;
   const token = localStorage.getItem("email");
-
-  
 
   return (
     <>

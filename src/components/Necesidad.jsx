@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { formatearFecha } from "../helpers/formatearFecha";
 import usePersonas from "../hooks/usePersonas";
+import ImagenModal from "./ImagenModal";
 
 const Necesidad = ({ necesidad }) => {
-  const { nombre, descripcion, fechaMaxima, prioridad, estado, _id } =
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const { tipoNecesidad, descripcion, fechaMaxima, prioridad, estado, imagen, _id } =
     necesidad;
 
   const {
@@ -11,6 +15,14 @@ const Necesidad = ({ necesidad }) => {
     completarNecesidad,
   } = usePersonas();
 
+  const handleImagenClick = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
   const token_admin = import.meta.env.VITE_TOKEN_ADMIN;
   const token = localStorage.getItem("email");
 
@@ -18,9 +30,9 @@ const Necesidad = ({ necesidad }) => {
     <div className="necesidad border-b p-5 flex justify-between gap-x-5 sm:flex-col lg:flex-row">
       {estado ? (
         <>
-          <div className="lg:flex lg:flex-col mx-auto">
-            <p className="mb-1 text-lg flex justify-center lg:justify-start">
-              {nombre}
+          <div className="lg:flex lg:flex-col mx-auto lg:mx-0">
+            <p className="mb-1 text-lg flex justify-center lg:justify-start capitalize">
+              {tipoNecesidad}
             </p>
             {estado && token_admin === token ? (
               <div className="flex flex-row justify-center mb-3">
@@ -32,11 +44,9 @@ const Necesidad = ({ necesidad }) => {
                   </div>
                 ) : (
                   <div className="completadaPor flex gap-1 bg-green-500 shadow py-1 px-2 rounded-lg">
-                    <p className="text-sm text-white xl:text-xl">
-                      Completada por
-                    </p>
+                    <p className="text-sm text-white xl:text-xl">Completada</p>
                     <p className="capitalize text-white text-sm xl:text-xl">
-                      {necesidad.completado.nombre}
+                      por: {necesidad.completado.nombre}
                     </p>
                   </div>
                 )}
@@ -61,14 +71,19 @@ const Necesidad = ({ necesidad }) => {
       ) : (
         <>
           <div>
-            <p className="mb-1 text-xl">{nombre}</p>
+            <p className="mb-1 text-xl">{tipoNecesidad}</p>
             <p className="mb-1 text-sm text-gray-500 uppercase">
               {descripcion}
             </p>
             <p className="mb-1 text-sm">
-              Fecha máxima: {formatearFecha(fechaMaxima)}
+              Fecha Máxima: {formatearFecha(fechaMaxima)}
             </p>
             <p className="mb-1 text-lg text-gray-600">Prioridad: {prioridad}</p>
+            {imagen && (
+              <div className="mb-4 w-10" onClick={handleImagenClick}>
+                <ImagenModal imageUrl={imagen} onClose={handleCloseModal} />
+              </div>
+            )}
           </div>
 
           <div className="btn-necesidad flex justify-center items-center lg:justify-endlg:flex-row gap-2 mt-3">
@@ -83,11 +98,11 @@ const Necesidad = ({ necesidad }) => {
 
             <button
               className={`${
-                estado ? "bg-green-600" : "bg-gray-500"
+                estado ? "bg-green-600" : "bg-gray-400"
               } px-4 py-3 text-white uppercase font-bold text-sm rounded-lg`}
               onClick={() => completarNecesidad(_id)}
             >
-              {estado ? "Completa" : "Incompleta"}
+              {estado ? "Completa" : "Pendiente"}
             </button>
             {token_admin === token && (
               <button

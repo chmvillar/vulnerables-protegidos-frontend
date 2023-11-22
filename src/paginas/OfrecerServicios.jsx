@@ -33,6 +33,9 @@ const SolicitarVisita = () => {
           >
             Ofrecer Ayuda Comunitaria
           </Link>
+          <a class="py-1" href="http://localhost:3000/" target="_blank">
+            Blog
+          </a>
         </div>
 
         <div className="btn-gradient flex flex-col justify-center items-center rounded-lg px-7 text-white font-bold py-1">

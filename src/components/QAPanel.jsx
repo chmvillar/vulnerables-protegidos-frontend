@@ -18,7 +18,7 @@ const QAPanel = ({ question, answer }) => {
   };
 
   return (
-    <div className="acordeon-faq border rounded shadow-lg shadow-orange-200 p-4 mb-4">
+    <div className="acordeon-faq border rounded shadow-lg shadow-orange-100 p-4 mb-4">
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={toggleAccordion}

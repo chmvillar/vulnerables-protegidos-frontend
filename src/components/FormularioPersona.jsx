@@ -18,7 +18,6 @@ const FormularioPersona = () => {
   const [validarDireccionActualizada, setValidarDireccionActualizada] =
     useState(false);
   const [validarDescripcion, setValidarDescripcion] = useState(true);
-  const navigate = useNavigate();
 
   const { submitPersona, persona } = usePersonas();
   const params = useParams();
@@ -48,7 +47,7 @@ const FormularioPersona = () => {
 
   const handleNombreChange = (e) => {
     const nuevoNombre = e.target.value;
-    setNombre(capitalize(nuevoNombre));
+    setNombre(nuevoNombre);
     if (nuevoNombre.length < 3) {
       setValidarNombre(false);
     } else {
@@ -124,10 +123,6 @@ const FormularioPersona = () => {
           nombre,
           direccion: direccionAUsar,
           descripcion,
-        });
-
-        setTimeout(() => {
-          navigate("/portal/personas/");
         });
         setId(null);
       }

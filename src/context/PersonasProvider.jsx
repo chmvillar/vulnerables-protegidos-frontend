@@ -134,7 +134,6 @@ const PersonasProvider = ({ children }) => {
 
         setTimeout(() => {
           navigate("/portal/personas/");
-          window.location.reload();
         }, 1500); // Espera 2 segundos antes de recargar la página
       });
     } catch (error) {

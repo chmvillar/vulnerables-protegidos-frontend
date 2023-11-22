@@ -5,17 +5,43 @@ import usePersonas from "../hooks/usePersonas";
 import Swal from "sweetalert2";
 
 const PRIORIDAD = ["Baja", "Media", "Alta"];
+const TIPONECESIDAD = [
+  "Acceso a Tecnología Educativa",
+  "Acceso a Transporte",
+  "Bienestar Emocional y Mental",
+  "Conectividad Digital",
+  "Cultura y Recreación",
+  "Desarrollo Personal",
+  "Documentación y Legalidad",
+  "Educación",
+  "Empleo y Medios de Vida",
+  "Equidad de Género",
+  "Inclusión Social",
+  "Medio Ambiente",
+  "Participación Cívica",
+  "Protección del Medio Ambiente",
+  "Red de Apoyo Social",
+  "Salud y Seguridad",
+  "Seguridad Alimentaria",
+  "Servicios Básicos",
+  "Sostenibilidad",
+  "Vivienda",
+  "Otros (Especifique en descripción)"
+];
+
+
 
 const ModalFormNecesidad = () => {
   const [id, setId] = useState("");
-  const [nombre, setNombre] = useState("");
+  const [tipoNecesidad, setTipoNecesidad] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [fechaMaxima, setFechaMaxima] = useState("");
   const [prioridad, setPrioridad] = useState("");
-  const [errorNombre, setErrorNombre] = useState("");
+  const [errorTipoNecesidad, setErrorTipoNecesidad] = useState("");
   const [errorDescripcion, setErrorDescripcion] = useState("");
   const [errorFechaMaxima, setErrorFechaMaxima] = useState("");
   const [errorPrioridad, setErrorPrioridad] = useState("");
+  const [image, setImage] = useState("");
 
   const params = useParams();
 
@@ -29,23 +55,51 @@ const ModalFormNecesidad = () => {
   useEffect(() => {
     if (necesidad?._id) {
       setId(necesidad._id);
-      setNombre(necesidad.nombre);
+      setTipoNecesidad(necesidad.tipoNecesidad);
       setDescripcion(necesidad.descripcion);
       setFechaMaxima(necesidad.fechaMaxima?.split("T")[0]);
       setPrioridad(necesidad.prioridad);
+      setImage(necesidad.imagen);
     } else {
       setId(""),
-        setNombre(""),
-        setDescripcion(""),
-        setFechaMaxima(""),
-        setPrioridad("");
+      setTipoNecesidad(""),
+      setDescripcion(""),
+      setFechaMaxima(""),
+      setPrioridad("");
     }
   }, [necesidad]);
+
+  function convertirBase64(e) {
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    var chunkSize = 5 * 1024 * 1024; // 5 MB chunks
+    var offset = 0;
+  
+    function leerChunk() {
+      var blob = file.slice(offset, offset + chunkSize);
+      reader.readAsDataURL(blob);
+    }
+  
+    reader.onload = function () {
+      if (reader.result) {
+        console.log(reader.result);
+        setImage(reader.result);
+
+        offset += chunkSize;
+  
+        if (offset < file.size) {
+          leerChunk();
+        }
+      }
+    };
+  
+    leerChunk();
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if ([nombre, descripcion, prioridad, fechaMaxima].includes("")) {
+    if ([tipoNecesidad, descripcion, prioridad, fechaMaxima].includes("")) {
       Swal.fire({
         icon: "warning",
         title: "Todos los campos son obligatorios",
@@ -58,28 +112,47 @@ const ModalFormNecesidad = () => {
       return;
     }
     if (
-      nombre.length >= 3 &&
+      tipoNecesidad !== "" &&
       descripcion.length >= 5 &&
       prioridad !== "" &&
       fechaMaxima !== ""
     ) {
-      if (necesidad?._id){
-        await submitNecesidad({ id, nombre, descripcion, fechaMaxima, prioridad, persona: params.id});
-      setId(""),
-        setNombre(""),
-        setDescripcion(""),
-        setFechaMaxima(""),
-        setPrioridad("");
-      } else {
-        await submitNecesidad({ nombre, descripcion, fechaMaxima, prioridad, persona: params.id});
+      if (necesidad?._id) {
+        await submitNecesidad({
+          id,
+          tipoNecesidad,
+          descripcion,
+          fechaMaxima,
+          prioridad,
+          persona: params.id,
+          imagen: image,
+        });
         setId(""),
-        setNombre(""),
+        setTipoNecesidad(""),
         setDescripcion(""),
         setFechaMaxima(""),
         setPrioridad("");
+        setImage("");
+      } else {
+        await submitNecesidad({
+          tipoNecesidad,
+          descripcion,
+          fechaMaxima,
+          prioridad,
+          persona: params.id,
+          imagen: image,
+        });
+        setId(""),
+        setTipoNecesidad(""),
+        setDescripcion(""),
+        setFechaMaxima(""),
+        setPrioridad("");
+        setImage("");
       }
     }
   };
+
+  const fechaActual = new Date().toISOString().split('T')[0];
 
   return (
     <Transition.Root show={modalFormNecesidad} as={Fragment}>
@@ -155,30 +228,34 @@ const ModalFormNecesidad = () => {
                     className="my-10"
                     onSubmit={handleSubmit}
                   >
+                    {/* actual */}
                     <div className="mb-5">
                       <label
-                        htmlFor="nombre"
-                        className="text-gray-700 uppercase font-bold text-sm"
+                        htmlFor="tipoNecesidad"
+                        className="text-gray-700 uppercase font-bold text-sm mb-2"
                       >
-                        Nombre:
+                        Tipo Necesidad:
                       </label>
-                      <input
-                        type="text"
-                        id="nombre"
-                        placeholder="Ingrese nombre de la necesidad"
-                        className="border-2 w-full p-2 placeholder-gray-400 rounded-md mt-2"
-                        value={nombre}
+                      <select
+                        id="tipoNecesidad"
+                        className="border-2 w-full p-2 mt-2 rounded-md"
+                        value={tipoNecesidad}
                         onChange={(e) => {
-                          setNombre(e.target.value);
+                          setTipoNecesidad(e.target.value);
                           if (e.target.value.length < 3) {
-                            setErrorNombre("Nombre inválido");
+                            setErrorTipoNecesidad("Tipo de Necesidad inválida");
                           } else {
-                            setErrorNombre("");
+                            setErrorTipoNecesidad("");
                           }
                         }}
-                      />
-                      {errorNombre && (
-                        <p className="text-red-500">{errorNombre}</p>
+                      >
+                        <option value="">-- Seleccionar --</option>
+                        {TIPONECESIDAD.map((opcion) => (
+                          <option key={opcion}>{opcion}</option>
+                        ))}
+                      </select>
+                      {errorPrioridad && (
+                        <p className="text-red-500">{errorPrioridad}</p>
                       )}
                     </div>
                     <div className="mb-2">
@@ -220,6 +297,7 @@ const ModalFormNecesidad = () => {
                         id="fecha-maxima"
                         className="border-2 w-full p-2 placeholder-gray-400 rounded-md mt-2"
                         value={fechaMaxima}
+                        min={fechaActual}
                         onChange={(e) => {
                           setFechaMaxima(e.target.value);
                           if (e.target.value.length < 8) {
@@ -261,6 +339,29 @@ const ModalFormNecesidad = () => {
                       {errorPrioridad && (
                         <p className="text-red-500">{errorPrioridad}</p>
                       )}
+                    </div>
+                    <div className="situacion">
+                      <div>
+                        {image && (
+                          <div className="mb-4 flex justify-center items-center">
+                            <img
+                              src={image}
+                              alt="Imagen seleccionada"
+                              className="max-w-full max-h-32 mb-2 rounded-lg"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <form className="bg-white shadow-md p-2 rounded-lg my-5">
+                        <label className="block">
+                          <input
+                            accept=".png, .jpg, .jpeg"
+                            type="file"
+                            className="block w-full text-sm file:text-white text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 :text-white hover:file:bg-blue-700 file:disabled:opacity-50 :disabled:pointer-events-none dark:file:bg-blue-500 dark:hover:file:bg-blue-400"
+                            onChange={convertirBase64}
+                          />
+                        </label>
+                      </form>
                     </div>
                     <div className="flex justify-center items-center mt-2">
                       <input

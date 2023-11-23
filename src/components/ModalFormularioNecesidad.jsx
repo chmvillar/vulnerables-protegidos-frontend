@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useParams } from "react-router-dom";
 import usePersonas from "../hooks/usePersonas";
 import Swal from "sweetalert2";
+import { LuTrash2 } from "react-icons/lu";
 
 const PRIORIDAD = ["Baja", "Media", "Alta"];
 const TIPONECESIDAD = [
@@ -26,10 +27,8 @@ const TIPONECESIDAD = [
   "Servicios Básicos",
   "Sostenibilidad",
   "Vivienda",
-  "Otros (Especifique en descripción)"
+  "Otros (Especifique en descripción)",
 ];
-
-
 
 const ModalFormNecesidad = () => {
   const [id, setId] = useState("");
@@ -62,10 +61,10 @@ const ModalFormNecesidad = () => {
       setImage(necesidad.imagen);
     } else {
       setId(""),
-      setTipoNecesidad(""),
-      setDescripcion(""),
-      setFechaMaxima(""),
-      setPrioridad("");
+        setTipoNecesidad(""),
+        setDescripcion(""),
+        setFechaMaxima(""),
+        setPrioridad("");
     }
   }, [necesidad]);
 
@@ -74,25 +73,24 @@ const ModalFormNecesidad = () => {
     var reader = new FileReader();
     var chunkSize = 5 * 1024 * 1024; // 5 MB chunks
     var offset = 0;
-  
+
     function leerChunk() {
       var blob = file.slice(offset, offset + chunkSize);
       reader.readAsDataURL(blob);
     }
-  
+
     reader.onload = function () {
       if (reader.result) {
         console.log(reader.result);
         setImage(reader.result);
-
         offset += chunkSize;
-  
+
         if (offset < file.size) {
           leerChunk();
         }
       }
     };
-  
+
     leerChunk();
   }
 
@@ -128,10 +126,10 @@ const ModalFormNecesidad = () => {
           imagen: image,
         });
         setId(""),
-        setTipoNecesidad(""),
-        setDescripcion(""),
-        setFechaMaxima(""),
-        setPrioridad("");
+          setTipoNecesidad(""),
+          setDescripcion(""),
+          setFechaMaxima(""),
+          setPrioridad("");
         setImage("");
       } else {
         await submitNecesidad({
@@ -143,16 +141,16 @@ const ModalFormNecesidad = () => {
           imagen: image,
         });
         setId(""),
-        setTipoNecesidad(""),
-        setDescripcion(""),
-        setFechaMaxima(""),
-        setPrioridad("");
+          setTipoNecesidad(""),
+          setDescripcion(""),
+          setFechaMaxima(""),
+          setPrioridad("");
         setImage("");
       }
     }
   };
 
-  const fechaActual = new Date().toISOString().split('T')[0];
+  const fechaActual = new Date().toISOString().split("T")[0];
 
   return (
     <Transition.Root show={modalFormNecesidad} as={Fragment}>
@@ -225,7 +223,7 @@ const ModalFormNecesidad = () => {
 
                   <form
                     id="formularioNecesidad"
-                    className="my-10"
+                    className="form-necesidad my-3"
                     onSubmit={handleSubmit}
                   >
                     {/* actual */}
@@ -234,7 +232,7 @@ const ModalFormNecesidad = () => {
                         htmlFor="tipoNecesidad"
                         className="text-gray-700 uppercase font-bold text-sm mb-2"
                       >
-                        Tipo Necesidad:
+                        Tipo Necesidad
                       </label>
                       <select
                         id="tipoNecesidad"
@@ -254,8 +252,8 @@ const ModalFormNecesidad = () => {
                           <option key={opcion}>{opcion}</option>
                         ))}
                       </select>
-                      {errorPrioridad && (
-                        <p className="text-red-500">{errorPrioridad}</p>
+                      {errorTipoNecesidad && (
+                        <p className="text-red-500">{errorTipoNecesidad}</p>
                       )}
                     </div>
                     <div className="mb-2">
@@ -263,7 +261,7 @@ const ModalFormNecesidad = () => {
                         htmlFor="descripcion"
                         className="text-gray-700 uppercase font-bold text-sm"
                       >
-                        Descripción de la necesidad:
+                        Descripción de la necesidad
                       </label>
                       <textarea
                         id="descripcion"
@@ -340,19 +338,32 @@ const ModalFormNecesidad = () => {
                         <p className="text-red-500">{errorPrioridad}</p>
                       )}
                     </div>
+                    <p className="text-gray-700 uppercase font-bold text-sm mb-2">
+                      Imagen
+                    </p>
                     <div className="situacion">
                       <div>
                         {image && (
-                          <div className="mb-4 flex justify-center items-center">
+                          <div className="flex justify-center items-center flex-col">
                             <img
                               src={image}
                               alt="Imagen seleccionada"
-                              className="max-w-full max-h-32 mb-2 rounded-lg"
+                              className="max-w-full max-h-32 rounded-lg"
                             />
+                            <div className="bg-red-500 px-2 md:w-auto rounded-md text-white text-center mt-2 cursor-pointer uppercase flex flex-row justify-center items-center gap-2">
+                              <LuTrash2 />
+                              <button
+                                type="button"
+                                onClick={() => setImage("")}
+                                className=""
+                              >
+                                Eliminar Imagen
+                              </button>
+                            </div>
                           </div>
                         )}
                       </div>
-                      <form className="bg-white shadow-md p-2 rounded-lg my-5">
+                      <div className="input bg-white shadow-md p-2 rounded-lg my-5">
                         <label className="block">
                           <input
                             accept=".png, .jpg, .jpeg"
@@ -361,7 +372,7 @@ const ModalFormNecesidad = () => {
                             onChange={convertirBase64}
                           />
                         </label>
-                      </form>
+                      </div>
                     </div>
                     <div className="flex justify-center items-center mt-2">
                       <input

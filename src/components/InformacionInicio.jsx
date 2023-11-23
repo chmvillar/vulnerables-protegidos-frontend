@@ -5,17 +5,19 @@ const InformacionInicio = () => {
     <div className="flex flex-col">
       <div className="mt-0.5 p-5 h-1/2 bg-white">
         <div className="flex justify-center items-center">
-          <img
-            src="https://i.ibb.co/f1FWSDq/279946538-365395948963849-5840987823382243196-n.jpg"
-            alt="Fono emergencia: 1518"
-            className="rounded-lg"
-          />
+          <a href="tel:1518">
+            <img
+              src="https://i.ibb.co/f1FWSDq/279946538-365395948963849-5840987823382243196-n.jpg"
+              alt="Fono emergencia: 1518"
+              className="rounded-lg"
+            />
+          </a>
         </div>
         <div className="container-inicio flex xl:flex-row gap-5 rounded-lg p-5 mx-auto sm:w-3/4 w-full xl:w-2/4">
           <p className="txt-inicio xl:text-xl lg:text-xl  text-gray-500 p-3 shadow-lg shadow-orange-100 rounded-lg mt-2">
-            Esta web está orientada a que puedan informanos sobre alguna persona
-            de su circulo o alguien de la calle, que esté necesitando ayuda y
-            podamos realizar una visita a esa persona y/o familia.
+            Esta web está orientada a que puedan informarnos sobre alguna
+            persona de su circulo o alguien de la calle, que esté necesitando
+            ayuda y podamos realizar una visita a esa persona y/o familia.
           </p>
           <p className="txt-inicio xl:text-xl lg:text-xl text-gray-500 p-3 shadow-lg shadow-orange-100 rounded-lg mt-2">
             Si está interesado en compartir sus conocimientos en algún área, o

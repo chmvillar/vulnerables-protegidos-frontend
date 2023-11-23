@@ -104,8 +104,8 @@ const Persona = () => {
         )}
       </div>
 
-      {/* Necesidades */}
-      <div className="container-persona flex justify-between gap-16 mt-5 bg-white p-5 rounded-lg shadow lg:flex-row sm:flex-col">
+      <div className="container-persona flex justify-between gap-8 mt-5 bg-white p-5 rounded-lg shadow lg:flex-row sm:flex-col">
+        {/* Necesidades */}
         <div className="w-full">
           <div className="flex justify-between">
             <p className="font-bold text-xl">Necesidades</p>
@@ -134,38 +134,40 @@ const Persona = () => {
         </div>
 
         {/* Asignaciones */}
-        {token_admin === token && (
-          <div className="w-full">
-            <div className="flex items-center justify-between">
-              <p className="font-bold text-xl">Asignaciones</p>
-              {token_admin === token && (
-                <Link
-                  to={`/portal/personas/asignar-asistente/${persona._id}`}
-                  className="text-gray-500 hover:text-black font-bold"
-                >
-                  Añadir
-                </Link>
+        <div className="w-full">
+          {token_admin === token && (
+            <div className="w-full">
+              <div className="flex items-center justify-between">
+                <p className="font-bold text-xl">Asignaciones</p>
+                {token_admin === token && (
+                  <Link
+                    to={`/portal/personas/asignar-asistente/${persona._id}`}
+                    className="text-gray-500 hover:text-black font-bold"
+                  >
+                    Añadir
+                  </Link>
+                )}
+              </div>
+              {persona.asignacion?.length ? (
+                persona.asignacion?.map((asignacion) => (
+                  <div
+                    key={asignacion._id}
+                    className="bg-white shadow mt-3 rounded-lg"
+                  >
+                    <Asignacion asignacion={asignacion} />
+                  </div>
+                ))
+              ) : (
+                <p className="bg-white shadow rounded-lg mt-5 text-center text-gray-600 p-5">
+                  Aún no se ha asignado nadie.
+                </p>
               )}
             </div>
-            {persona.asignacion?.length ? (
-              persona.asignacion?.map((asignacion) => (
-                <div
-                  key={asignacion._id}
-                  className="bg-white shadow mt-3 rounded-lg"
-                >
-                  <Asignacion asignacion={asignacion} />
-                </div>
-              ))
-            ) : (
-              <p className="bg-white shadow rounded-lg mt-5 text-center text-gray-600 p-5">
-                Aún no se ha asignado nadie.
-              </p>
-            )}
-          </div>
-        )}
-        <ModalFormNecesidad />
-        <ModalEliminarNecesidad />
-        <ModalEliminarAsignacion />
+          )}
+          <ModalFormNecesidad />
+          <ModalEliminarNecesidad />
+          <ModalEliminarAsignacion />
+        </div>
       </div>
     </>
   );

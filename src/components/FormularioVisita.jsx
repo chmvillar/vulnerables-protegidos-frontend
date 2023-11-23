@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import Swal from "sweetalert2";
 
 const FormularioVisita = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,10 +19,31 @@ const FormularioVisita = () => {
 
   const [formData, setFormData] = useState(initialState);
 
+  const alerta = (icono, titulo, mensaje) => {
+    Swal.fire({
+      icon: icono,
+      title: titulo,
+      text: mensaje,
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      timer: 2500,
+    });
+  }
+
   const sendEmail = (e) => {
     e.preventDefault();
-    setIsLoading(true);
 
+    if (formData.user_name.length < 3) {
+      alerta("warning", "El nombre debe tener al menos 3 caracteres", "Intentelo de nuevo");
+      return;
+    }
+
+    if (formData.message.length <= 5) {
+      alerta("warning", "La descripción debe tener más de 5 caracteres", "Intentelo de nuevo");
+      return;
+    }
+
+    setIsLoading(true);
     emailjs
       .sendForm(
         "service_bpsug0l",
@@ -35,6 +57,7 @@ const FormularioVisita = () => {
           setIsLoading(false);
           setFormData(initialState);
           setForceRender((prev) => !prev);
+          alerta("success", "Muchas gracias", "Su información será recibida y revisada por nuestro equipo.");
         },
         (error) => {
           console.log(error.text);

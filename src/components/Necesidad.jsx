@@ -45,8 +45,10 @@ const Necesidad = ({ necesidad }) => {
                 ) : (
                   <div className="completadaPor flex gap-1 bg-green-500 shadow py-1 px-2 rounded-lg">
                     <p className="text-sm text-white xl:text-xl">Completada</p>
+                    <p className="text-sm text-white xl:text-xl">por:</p>
+                    
                     <p className="capitalize text-white text-sm xl:text-xl">
-                      por: {necesidad.completado.nombre}
+                      {necesidad.completado.nombre}
                     </p>
                   </div>
                 )}

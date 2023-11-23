@@ -30,7 +30,7 @@ const NavbarLayout = () => {
           </Link>
 
           <Link to="/formulario/ofrecer-servicios/" className="mb-2 md:mb-0">
-            Ofrecer Ayuda comunitaria
+            Ofrecer Ayuda Comunitaria
           </Link>
           <a class="py-1" href="http://localhost:3000/" target="_blank">
             Blog

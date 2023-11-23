@@ -4,45 +4,30 @@ import clienteAxios from "../config/clienteAxios";
 import Swal from "sweetalert2";
 
 const ConfirmarCuenta = () => {
+  const params = useParams();
+  const { id } = params;
 
-const params = useParams();
-const { id } = params;
-
-useEffect( () => {
-  const confirmarCuenta = async () => {
-    try {
-      const url = `/usuarios/confirmar/${id}`;
-      const { data } = await clienteAxios(url);
-      Swal.fire({
-        icon: "success",
-        title: "Correo confirmado exitosamente",
-        text: data.msg,
-        confirmButtonColor: "#3085d6",
-        allowOutsideClick: false,
-        confirmButtonText: "Continuar",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = '/portal/';
-        }
-      });
-    } catch (error) {
-      Swal.fire({
-        position: 'center',
-        icon: "error",
-        title: "Enlace expirado",
-        text: "Comunicate con el administrador",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "Volver",
-        allowOutsideClick: false,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = '/portal/';
-        }
-      });
-    }
-  }
-  confirmarCuenta();
-}, [id]);
+  useEffect(() => {
+    const confirmarCuenta = async () => {
+      try {
+        const url = `/usuarios/confirmar/${id}`;
+        const { data } = await clienteAxios(url);
+        Swal.fire({
+          icon: "success",
+          title: "Correo confirmado exitosamente",
+          text: data.msg,
+          showConfirmButton: false,
+          allowOutsideClick: false,
+        });
+        setTimeout(() => {
+          window.location.href = "/portal/";
+        }, 2100);
+      } catch (error) {
+        console.log(first);
+      }
+    };
+    confirmarCuenta();
+  }, [id]);
 
   return (
     <>

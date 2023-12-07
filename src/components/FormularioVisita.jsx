@@ -11,6 +11,8 @@ const FormularioVisita = () => {
   const form = useRef();
 
   const initialState = {
+    user_name_solicitante: "",
+    user_rut_solicitante: "",
     user_name: "",
     user_rut: "",
     user_direccion: "",
@@ -30,20 +32,48 @@ const FormularioVisita = () => {
     });
   }
 
+  const validarRutChileno = (rut) => {
+    const rutLimpio = rut.replace(/[\.\-]/g, '');
+    const rutArray = rutLimpio.split('');
+    const rutNumero = rutArray.slice(0, -1).join('');
+    const dv = rutArray.pop().toLowerCase();
+  
+    if (!/^[0-9]+$/g.test(rutNumero) || rutNumero.length < 7) {
+      return false;
+    }
+  
+    let suma = 0;
+    let multiplicador = 2;
+  
+    for (let i = rutNumero.length - 1; i >= 0; i--) {
+      suma += parseInt(rutNumero.charAt(i)) * multiplicador;
+      multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+    }
+  
+    const resto = suma % 11;
+    const dvEsperado = 11 - resto === 10 ? 'k' : (11 - resto).toString();
+  
+    return dv === dvEsperado;
+  };
+
   const sendEmail = (e) => {
     e.preventDefault();
 
-    if (formData.user_name.length < 3) {
+    if (formData.user_name_solicitante.length < 3) {
+      alerta("warning", "El NOMBRE DEL SOLICITANTE debe tener al menos 3 caracteres", "Intentelo de nuevo");
+      return;
+    } else if (!validarRutChileno(formData.user_rut_solicitante)) {
+      alerta("error", "Rut inválido", "Vuelva a intentarlo, por favor.");
+      return;
+    } else if (formData.user_name.length < 3) {
       alerta("warning", "El nombre debe tener al menos 3 caracteres", "Intentelo de nuevo");
       return;
-    }
-
-    if (formData.message.length <= 5) {
+    } else if (formData.message.length < 5) {
       alerta("warning", "La descripción debe tener más de 5 caracteres", "Intentelo de nuevo");
       return;
+    } else {
+      setIsLoading(true);
     }
-
-    setIsLoading(true);
     emailjs
       .sendForm(
         "service_bpsug0l",
@@ -53,7 +83,7 @@ const FormularioVisita = () => {
       )
       .then(
         (result) => {
-          console.log(result.text);
+          console.log(result.text); 
           setIsLoading(false);
           setFormData(initialState);
           setForceRender((prev) => !prev);
@@ -93,6 +123,45 @@ const FormularioVisita = () => {
           </h1>
         </div>
         <div className="flex flex-col mt-5 mx-auto">
+          <p className="lg:text-lg mb-5 border-b-2 border-r-2 border-blue-200 font-bold">Información de quién Solicita Visita</p>
+          <label
+            className="after:content-['*'] after:ml-0.5 after:text-red-500"
+            htmlFor="nombre_solicitante"
+          >
+            Nombre Solicitante
+          </label>
+          <input
+            type="text"
+            id="nombre_solicitante"
+            name="user_name_solicitante"
+            className="border rounded-lg mb-5 py-1.5 px-2"
+            placeholder="Miles Morales"
+            value={formData.user_name_solicitante}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="flex flex-col mx-auto">
+          <label
+            className="after:content-['*'] after:ml-0.5 after:text-red-500"
+            htmlFor="rut_solicitante"
+          >
+            Rut Solicitante
+          </label>
+          <input
+            type="text"
+            id="rut_solicitante"
+            name="user_rut_solicitante"
+            className="border rounded-lg mb-5 py-1.5 px-2"
+            placeholder="Miles Morales"
+            value={formData.user_rut_solicitante}
+            onChange={handleChange}
+            required
+            maxLength="12"
+          />
+        </div>
+        <div className="flex flex-col mx-auto">
+          <p className="lg:text-lg mb-5 mt-5 border-b-2 border-r-2 border-blue-200 font-bold">Información de quien necesita una Visita</p>
           <label
             className="after:content-['*'] after:ml-0.5 after:text-red-500"
             htmlFor="nombre"

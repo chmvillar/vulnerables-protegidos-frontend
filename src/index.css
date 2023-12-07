@@ -110,7 +110,13 @@
     justify-content: center;
     margin-right: -5rem;
     margin-left: -5rem;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+  }
+
+  .container-info-persona {
+    margin-right: -3rem;
+    margin-left: -3rem;
   }
 
   .necesidad {
@@ -175,5 +181,11 @@
   .btn-necesidad {
     display: flex;
     flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1288px){
+  .btn-elim-necesidad {
+    margin-top: -5rem;
   }
 }

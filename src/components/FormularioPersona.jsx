@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import usePersonas from "../hooks/usePersonas";
 import { formatRut, validarRut } from "../helpers/ValidarRut";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const FormularioPersona = () => {

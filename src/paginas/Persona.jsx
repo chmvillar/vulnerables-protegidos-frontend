@@ -4,7 +4,7 @@ import ModalFormNecesidad from "../components/ModalFormularioNecesidad";
 import ModalEliminarNecesidad from "../components/ModalEliminarNecesidad";
 import ModalEliminarAsignacion from "../components/ModalEliminarAsignacion";
 import usePersonas from "../hooks/usePersonas";
-import { LuPencilLine, LuTrash2, LuPlusCircle } from "react-icons/lu";
+import { LuPencilLine, LuTrash2, LuMapPin } from "react-icons/lu";
 import Swal from "sweetalert2";
 import Necesidad from "../components/Necesidad";
 import Asignacion from "../components/Asignacion";
@@ -65,7 +65,7 @@ const Persona = () => {
     });
   });
 
-  const { nombre } = persona;
+  const { nombre, direccion, descripcion } = persona;
 
   const handleClickEliminarPersona = () => {
     Swal.fire({
@@ -80,14 +80,37 @@ const Persona = () => {
     });
   };
 
+  function openMap(direccion) {
+    // Obtenemos la dirección en formato URL
+    const url = new URL("https://www.google.com/maps/search/" + direccion);
+
+    // Abrimos Google Maps en una nueva pestaña
+    window.open(url);
+  }
+
   if (cargando) return "Cargando...";
 
   return (
     <>
-      <div className="flex justify-center">
-        <h1 className="nombrePersona font-black text-4xl capitalize">
-          {nombre}
-        </h1>
+      <div className="flex justify-center items-center flex-col">
+        <div className="container-info-persona bg-white shadow-md rounded-lg px-5 py-2">
+          <div className="flex items-center justify-center flex-col">
+            <h1 className="nombrePersona font-black text-4xl capitalize flex justify-center items-center">
+              {nombre}
+            </h1>
+            <h1 className="flex justify-center items-center text-lg text-gray-500 -mt-3 md:mt-1 md:mb-1">
+              {descripcion}
+            </h1>
+          </div>
+          <div className="flex items-center justify-center gap-2">
+            <p className="text-green-600 text-xl">
+              <LuMapPin />
+            </p>
+            <p className="cursor-pointer" onClick={() => openMap(direccion)}>
+              {direccion}
+            </p>
+          </div>
+        </div>
       </div>
       <div className="flex justify-center mt-2 mb-8">
         {token_admin === token && (
@@ -103,9 +126,11 @@ const Persona = () => {
           </div>
         )}
       </div>
-
-      <div className="container-persona flex justify-between gap-8 mt-5 bg-white p-5 rounded-lg shadow lg:flex-row sm:flex-col">
-        {/* Necesidades */}
+      <div
+        className={`container-persona ${
+          token_admin === token ? "flex justify-between gap-8" : ""
+        } mt-5 bg-white p-5 rounded-lg shadow lg:flex-row sm:flex-col`}
+      >
         <div className="w-full">
           <div className="flex justify-between">
             <p className="font-bold text-xl">Necesidades</p>

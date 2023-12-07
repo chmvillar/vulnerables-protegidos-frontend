@@ -6,8 +6,15 @@ import ImagenModal from "./ImagenModal";
 const Necesidad = ({ necesidad }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const { tipoNecesidad, descripcion, fechaMaxima, prioridad, estado, imagen, _id } =
-    necesidad;
+  const {
+    tipoNecesidad,
+    descripcion,
+    fechaMaxima,
+    prioridad,
+    estado,
+    imagen,
+    _id,
+  } = necesidad;
 
   const {
     handleModalEditarNecesidad,
@@ -46,7 +53,7 @@ const Necesidad = ({ necesidad }) => {
                   <div className="completadaPor flex gap-1 bg-green-500 shadow py-1 px-2 rounded-lg">
                     <p className="text-sm text-white xl:text-xl">Completada</p>
                     <p className="text-sm text-white xl:text-xl">por:</p>
-                    
+
                     <p className="capitalize text-white text-sm xl:text-xl">
                       {necesidad.completado.nombre}
                     </p>
@@ -60,14 +67,12 @@ const Necesidad = ({ necesidad }) => {
             )}
           </div>
           <div className="flex justify-center items-center">
-            {token_admin === token && (
-              <button
-                className="bg-red-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg"
-                onClick={() => handleModalEliminarNecesidad(necesidad)}
-              >
-                Eliminar
-              </button>
-            )}
+            <button
+              className="bg-red-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg"
+              onClick={() => handleModalEliminarNecesidad(necesidad)}
+            >
+              Eliminar
+            </button>
           </div>
         </>
       ) : (
@@ -89,14 +94,12 @@ const Necesidad = ({ necesidad }) => {
           </div>
 
           <div className="btn-necesidad flex justify-center items-center lg:justify-endlg:flex-row gap-2 mt-3">
-            {token_admin === token && (
-              <button
-                className="bg-blue-500 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg"
-                onClick={() => handleModalEditarNecesidad(necesidad)}
-              >
-                Editar
-              </button>
-            )}
+            <button
+              className="bg-blue-500 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg"
+              onClick={() => handleModalEditarNecesidad(necesidad)}
+            >
+              Editar
+            </button>
 
             <button
               className={`${
@@ -106,14 +109,12 @@ const Necesidad = ({ necesidad }) => {
             >
               {estado ? "Completa" : "Pendiente"}
             </button>
-            {token_admin === token && (
-              <button
-                className="bg-red-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg"
-                onClick={() => handleModalEliminarNecesidad(necesidad)}
-              >
-                Eliminar
-              </button>
-            )}
+            <button
+              className="btn-elim-necesidad bg-red-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg"
+              onClick={() => handleModalEliminarNecesidad(necesidad)}
+            >
+              Eliminar
+            </button>
           </div>
         </>
       )}

@@ -8,6 +8,8 @@ const Registrar = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repetirPassword, setRepetirPassword] = useState("");
+  const token_admin = import.meta.env.VITE_TOKEN_ADMIN;
+  const token = localStorage.getItem("email");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -81,90 +83,107 @@ const Registrar = () => {
   };
 
   return (
-    <form
-      className="container-asistente bg-white shadow rounded-lg sm:w-1/3 md:w-2/3 lg:w-1/3 mx-auto mt-10"
-      onSubmit={handleSubmit}
-    >
-      <h1 className="ini-sesion text-4xl text-center mb-10 pt-8 pb-4">
-        Registrar Asistente
-      </h1>
-      {/* Nombre */}
-      <div className="mb-5 px-8">
-        <label
-          className="text-gray-600 block text-xl font-bold"
-          htmlFor="nombre"
+    <>
+      {token_admin === token && (
+        <form
+          className="container-asistente bg-white shadow rounded-lg sm:w-1/3 md:w-2/3 lg:w-1/3 mx-auto mt-10"
+          onSubmit={handleSubmit}
         >
-          Nombre
-        </label>
-        <input
-          id="nombre"
-          type="text"
-          placeholder="Juan Magan"
-          className="w-full mt-3 p-2 border rounded-xl bg-gray-50"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-        />
-      </div>
-      {/* Correo */}
-      <div className="mb-5 px-8">
-        <label
-          className="text-gray-600 block text-xl font-bold"
-          htmlFor="email"
-        >
-          Correo
-        </label>
-        <input
-          id="email"
-          type="email"
-          placeholder="Correo@islademaipo.cl"
-          className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      {/* Contraseña */}
-      <div className="mb-5 px-8">
-        <label
-          className="text-gray-600 block text-xl font-bold"
-          htmlFor="password"
-        >
-          Contraseña
-        </label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Ingrese la contraseña"
-          className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      {/* Repetir Contraseña */}
-      <div className="mb-5 px-8">
-        <label
-          className="text-gray-600 block text-xl font-bold"
-          htmlFor="password2"
-        >
-          Repetir Contraseña
-        </label>
-        <input
-          id="password2"
-          type="password"
-          placeholder="Repita la contraseña"
-          className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
-          value={repetirPassword}
-          onChange={(e) => setRepetirPassword(e.target.value)}
-        />
-      </div>
+          <h1 className="ini-sesion text-4xl text-center mb-10 pt-8 pb-4">
+            Registrar Asistente
+          </h1>
+          {/* Nombre */}
+          <div className="mb-5 px-8">
+            <label
+              className="text-gray-600 block text-xl font-bold"
+              htmlFor="nombre"
+            >
+              Nombre
+            </label>
+            <input
+              id="nombre"
+              type="text"
+              placeholder="Juan Magan"
+              className="w-full mt-3 p-2 border rounded-xl bg-gray-50"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+          </div>
+          {/* Correo */}
+          <div className="mb-5 px-8">
+            <label
+              className="text-gray-600 block text-xl font-bold"
+              htmlFor="email"
+            >
+              Correo
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Correo@islademaipo.cl"
+              className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          {/* Contraseña */}
+          <div className="mb-5 px-8">
+            <label
+              className="text-gray-600 block text-xl font-bold"
+              htmlFor="password"
+            >
+              Contraseña
+            </label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Ingrese la contraseña"
+              className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          {/* Repetir Contraseña */}
+          <div className="mb-5 px-8">
+            <label
+              className="text-gray-600 block text-xl font-bold"
+              htmlFor="password2"
+            >
+              Repetir Contraseña
+            </label>
+            <input
+              id="password2"
+              type="password"
+              placeholder="Repita la contraseña"
+              className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+              value={repetirPassword}
+              onChange={(e) => setRepetirPassword(e.target.value)}
+            />
+          </div>
 
-      <div className="crear-asistente text-center justify-between">
-        <input
-          type="submit"
-          value="Crear"
-          className="btn-gradient w-40 py-2 mt-2 mb-5 text-white font-bold rounded-xl hover:cursor-pointer mx-auto"
-        />
-      </div>
-    </form>
+          <div className="crear-asistente text-center justify-between">
+            <input
+              type="submit"
+              value="Crear"
+              className="btn-gradient w-40 py-2 mt-2 mb-5 text-white font-bold rounded-xl hover:cursor-pointer mx-auto"
+            />
+          </div>
+        </form>
+      )}
+      {token_admin !== token && (
+        <div className="flex items-center justify-center flex-col">
+          <h1 className="text-red-600 font-bold uppercase mt-10 mb-5 text-2xl">
+            No tienes los permisos suficientes
+          </h1>
+          <Link
+              to="/portal/personas/"
+              className="flex items-center justify-center bg-blue-400 font-bold text-lg w-24 rounded-xl text-white"
+            >
+              Volver
+            </Link>
+        </div>
+      )}
+    </>
   );
 };
 

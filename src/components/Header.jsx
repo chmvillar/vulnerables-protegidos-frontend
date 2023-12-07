@@ -20,7 +20,7 @@ const Header = () => {
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
           <Link to="/portal/personas/">
             <h2 className="header-portal text-4xl font-black text-center md:mb-0">
-              Portal Web
+              Vulnerables Protegidos
             </h2>
           </Link> 
           <Link
